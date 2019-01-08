@@ -66,8 +66,10 @@ int main() {
 			{
 				curr = curr->GetNext();
 			}
+			curr->InsertAfter(add);
+			cout << "\n\n\n";
 		}
-		if (choice == 'd') {
+		else if (choice == 'd') {
 			curr = head;
 			PlaylistNode* tmp = NULL;
 			cout << "Name of song to remove: ";
@@ -81,8 +83,25 @@ int main() {
 				tmp = curr->GetNext();
 				curr->SetNext(tmp->GetNext());
 				delete tmp;
+				cout << "\n\n\n";
 		}
-		if (choice == 'o') {
+
+		else if (choice == 'c') {
+			int cPos = 0;
+			int dPos = 0;
+			curr = head;
+			cout << "Current Position of song: ";
+			cin >> cPos;
+			cout << "Desired Position of song: ";
+			cin >> dPos;
+
+			for (int i = 0; i < cPos; i++) {
+				curr = curr->GetNext();
+			}
+
+		}
+
+		else if (choice == 'o') {
 			curr = head;
 			int count = 0;
 			do {
@@ -90,8 +109,8 @@ int main() {
 				count++;
 				cout << count << ". Song Name: " << curr->GetSongName() << endl;
 			} while (curr->GetNext() != NULL);
+			cout << "\n\n\n";
 		}
-
 
 		else if (choice == 'q')
 		{
