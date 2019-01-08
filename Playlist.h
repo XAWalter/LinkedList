@@ -8,15 +8,15 @@ using namespace std;
 class PlaylistNode{
 public:
 	PlaylistNode();
-	PlaylistNode(string, string, string, int, PlaylistNode*);
-	void InsertAfter();
-	void SetNext();
-	string GetID();
-	string GetSongName();
-	string GetArtistName();
-	int GetSongLength();
-	PlaylistNode GetNext();
-	void PrintPlaylistNode();
+	PlaylistNode(string, string, string, int);
+	//void InsertAfter();
+	//void SetNext();
+	//string GetID();
+	//string GetSongName();
+	//string GetArtistName();
+	//int GetSongLength();
+	//PlaylistNode GetNext();
+	//void PrintPlaylistNode();
 
 private:
 	string uniqueID;
