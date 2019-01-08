@@ -5,7 +5,9 @@
 using namespace std;
 
 int main() {
-	PlaylistNode songOne;
+	PlaylistNode* songOne = NULL;
+	PlaylistNode* songTwo = NULL;
+
 
 	system("pause");
 	return 0;

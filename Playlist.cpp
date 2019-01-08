@@ -25,10 +25,14 @@ PlaylistNode::PlaylistNode(string ID, string sName, string aName, int length) {
 //
 //}
 //
-//void PlaylistNode::SetNext() {
-//
-//}
-//
+void PlaylistNode::SetNext(PlaylistNode* next) {
+	PlaylistNode* tmp = NULL;
+	tmp->nextNodePtr = next->nextNodePtr;
+	next->nextNodePtr = next;
+
+
+}
+
 //string PlaylistNode::GetID() {
 //
 //}

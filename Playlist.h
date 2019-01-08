@@ -10,7 +10,7 @@ public:
 	PlaylistNode();
 	PlaylistNode(string, string, string, int);
 	//void InsertAfter();
-	//void SetNext();
+	void SetNext(PlaylistNode*);
 	//string GetID();
 	//string GetSongName();
 	//string GetArtistName();
