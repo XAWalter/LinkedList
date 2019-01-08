@@ -9,14 +9,14 @@ class PlaylistNode{
 public:
 	PlaylistNode();
 	PlaylistNode(string, string, string, int);
-	//void InsertAfter();
+	void InsertAfter(PlaylistNode*);
 	void SetNext(PlaylistNode*);
-	//string GetID();
-	//string GetSongName();
-	//string GetArtistName();
-	//int GetSongLength();
-	//PlaylistNode GetNext();
-	//void PrintPlaylistNode();
+	string GetID();
+	string GetSongName();
+	string GetArtistName();
+	int GetSongLength();
+	PlaylistNode* GetNext();
+	void PrintPlaylistNode();
 
 private:
 	string uniqueID;
