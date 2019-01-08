@@ -14,7 +14,7 @@ PlaylistNode::PlaylistNode(){
 	nextNodePtr = NULL;
 }
 
-//Constructor
+//Constructor passing info individually
 PlaylistNode::PlaylistNode(string ID, string sName, string aName, int length) {
 	uniqueID = ID;
 	songName = sName;
