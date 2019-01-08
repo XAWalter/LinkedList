@@ -21,6 +21,10 @@ int main() {
 	//cout << "Mem of song2: " << songTwo << endl;
 	//cout << "Mem of next2: " << songTwo->GetNext() << endl;
 	string plyName;
+	string ID = "none";
+	string songName = "none";
+	string artName = "none";
+	int length = 0;
 	char choice = 0;
 	PlaylistNode* head = NULL;
 	PlaylistNode* curr = NULL;
@@ -28,13 +32,14 @@ int main() {
 	PlaylistNode* two = NULL;
 	PlaylistNode* three = NULL;
 	
-	one = new PlaylistNode();
-	two = new PlaylistNode();
-	three = new PlaylistNode();
+	one = new PlaylistNode("a","a","a",1);
+	two = new PlaylistNode("b", "b", "b", 2);
+	three = new PlaylistNode("c", "c", "c", 3);
 
 	
-	head = one;
-	curr = two;
+	head = new PlaylistNode();
+	curr = head;
+	head->InsertAfter(one);
 	one->InsertAfter(two);
 	two->InsertAfter(three);
 	
@@ -45,8 +50,49 @@ int main() {
 		PrintMenu(plyName);
 		cin >> choice;
 		if (choice == 'a') {
-			cout << "A" << endl;
+			curr = head;
+			PlaylistNode* add = NULL;
+			cout << "New song name: ";
+			cin >> songName;
+			cout << "Song ID: ";
+			cin >> ID;
+			cout << "Artist's Name: ";
+			cin >> artName;
+			cout << "Song Length: ";
+			cin >> length;
+			add = new PlaylistNode(ID, songName, artName, length);
+
+			while (curr->GetNext() != NULL)
+			{
+				curr = curr->GetNext();
+			}
 		}
+		if (choice == 'd') {
+			curr = head;
+			PlaylistNode* tmp = NULL;
+			cout << "Name of song to remove: ";
+			cin >> songName;
+			do {
+				if (songName == curr->GetNext()->GetSongName()){
+					break;
+				}
+				curr = curr->GetNext();
+			} while (curr != NULL);
+				tmp = curr->GetNext();
+				curr->SetNext(tmp->GetNext());
+				delete tmp;
+		}
+		if (choice == 'o') {
+			curr = head;
+			int count = 0;
+			do {
+				curr = curr->GetNext();
+				count++;
+				cout << count << ". Song Name: " << curr->GetSongName() << endl;
+			} while (curr->GetNext() != NULL);
+		}
+
+
 		else if (choice == 'q')
 		{
 			break;
