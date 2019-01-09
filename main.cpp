@@ -86,23 +86,35 @@ int main() {
 
 		//Remove song given ID
 		else if (choice == 'd') {
+			bool found = false;
 			curr = head;
 			PlaylistNode* tmp = NULL;
 			cout << "ID of song to remove: ";
 			cin >> ID;
 			do {
 				if (ID == curr->GetNext()->GetID()){
+					found = true;
 					break;
 				}
 				curr = curr->GetNext();
-			} while (curr != NULL);
+			} while (curr->GetNext() != NULL);
+			if (found) {
 				tmp = curr->GetNext();
 				curr->SetNext(tmp->GetNext());
-				if (tail == tmp)
-				{
+
+				//reassign head or tail if appropriate
+				if (tail == tmp){
 					tail = tmp->GetNext();
 				}
+
+				if (head->GetNext() == tmp){
+					head->SetNext(tmp->GetNext());
+				}
 				delete tmp;
+			}
+			else {
+				cout << "Not Found" << endl;
+			}
 
 				//clear choice
 				ID = "none";
@@ -114,6 +126,9 @@ int main() {
 		else if (choice == 'c') {
 			PlaylistNode* tmp1 = NULL;
 			PlaylistNode* tmp2 = NULL;
+			PlaylistNode* tmp3 = NULL;
+			PlaylistNode* tmp4 = NULL;
+			PlaylistNode* tmp5 = NULL;
 			int cPos = 0;
 			int dPos = 0;
 			int tPos = 0;
@@ -142,20 +157,34 @@ int main() {
 			}
 
 			//rearrange list given choices
-			for (int i = 0; i < cPos; i++) {
+			for (int i = 0; i < cPos-1; i++) {
 				curr = curr->GetNext();
 			}
 
 			tmp1 = curr->GetNext();
-			curr->SetNext(tmp1->GetNext());
 
 			curr = head;
-			for (int i = 0; i < dPos - 1; i++) {
+			for (int i = 0; i < dPos-1; i++) {
 				curr = curr->GetNext();
 			}
 
-			tmp1->SetNext(curr->GetNext());
-			curr->SetNext(tmp1);
+			tmp2 = curr->GetNext();
+			tmp3 = tmp1->GetNext();
+			tmp1->SetNext(tmp2->GetNext());
+			tmp2->SetNext(tmp3);
+			tmp3->SetNext(tmp1);
+			if (tmp3 == NULL) {
+
+			}
+			tmp3->SetNext(tmp2);
+
+			//reassign head or tail if appropriate
+			if (tmp1 == head->GetNext()) {
+				head->SetNext(tmp2);
+			}
+			if (tmp1 == tail) {
+				tail = curr;
+			}
 
 			//clear choice
 			length = 0;
