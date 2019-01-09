@@ -43,6 +43,7 @@ int main() {
 	head->InsertAfter(one);
 	one->InsertAfter(two);
 	two->InsertAfter(three);
+	tail = three;
 	
 
 	cout << "Playlist Name: ";
@@ -115,18 +116,33 @@ int main() {
 			PlaylistNode* tmp2 = NULL;
 			int cPos = 0;
 			int dPos = 0;
+			int tPos = 0;
 			curr = head;
+
+			//find pos of tail
+			do {
+				tPos++;
+				curr = curr->GetNext();
+			} while (curr != tail);
+
+			curr = head;
+
+			//user input
 			cout << "Current Position of song: ";
 			cin >> cPos;
 			cout << "Desired Position of song: ";
 			cin >> dPos;
+
+			//if user input is beyond bounds force within
 			if(dPos < 1){
 				dPos = 1;
 			}
-			else if(dPos >{
-
+			else if(dPos > tPos){
+				dPos = tPos;
 			}
-			for (int i = 0; i < cPos - 1; i++) {
+
+			//rearrange list given choices
+			for (int i = 0; i < cPos; i++) {
 				curr = curr->GetNext();
 			}
 
@@ -187,10 +203,10 @@ int main() {
 				curr = curr->GetNext();
 				count++;
 				cout << count << "." << endl;
-				cout << "Unique ID: " << curr->GetID();
-				cout << "Song Name: " << curr->GetSongName();
-				cout << "Artist Name: " << curr->GetArtistName();
-				cout << "Song Length (in seconds): " << curr->GetSongLength();
+				cout << "Unique ID: " << curr->GetID() << endl;
+				cout << "Song Name: " << curr->GetSongName() << endl;
+				cout << "Artist Name: " << curr->GetArtistName() << endl;
+				cout << "Song Length (in seconds): " << curr->GetSongLength() << endl;
 			} while (curr->GetNext() != NULL);
 			//if list is empty
 			if (count == 0) {
