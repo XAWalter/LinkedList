@@ -87,6 +87,8 @@ int main() {
 		}
 
 		else if (choice == 'c') {
+			PlaylistNode* tmp1 = NULL;
+			PlaylistNode* tmp2 = NULL;
 			int cPos = 0;
 			int dPos = 0;
 			curr = head;
@@ -95,10 +97,20 @@ int main() {
 			cout << "Desired Position of song: ";
 			cin >> dPos;
 
-			for (int i = 0; i < cPos; i++) {
+			for (int i = 0; i < cPos-1; i++) {
 				curr = curr->GetNext();
 			}
 
+			tmp1 = curr->GetNext();
+			curr->SetNext(tmp1->GetNext());
+
+			curr = head;
+			for (int i = 0; i < dPos - 1; i++) {
+				curr = curr->GetNext();
+			}
+
+			tmp1->SetNext(curr->GetNext());
+			curr->SetNext(tmp1);
 		}
 
 		else if (choice == 'o') {
