@@ -52,8 +52,12 @@ int main() {
 		PrintMenu(plyName);
 		cin >> choice;
 
-		//add song to the end of the playlist
-		if (choice == 'a') {
+		switch (choice)
+		{
+
+			//add song to the end of the playlist
+		case 'a':
+		{
 			curr = head;
 			PlaylistNode* add = NULL;
 			cout << "New song name: ";
@@ -82,10 +86,13 @@ int main() {
 			choice = 0;
 
 			cout << "\n\n\n";
+			break;
 		}
 
 		//Remove song given ID
-		else if (choice == 'd') {
+		case 'd':
+		{
+
 			bool found = false;
 			curr = head;
 			PlaylistNode* tmp = NULL;
@@ -122,15 +129,18 @@ int main() {
 				}
 			}
 
-				//clear choice
-				ID = "none";
-				choice = 0;
+			//clear choice
+			ID = "none";
+			choice = 0;
 
-				cout << "\n\n\n";
+			cout << "\n\n\n";
+			break;
 		}
 
 		//geeks for geeks helped ALOT for this
-		else if (choice == 'c') {
+		case 'c':
+		{
+
 			PlaylistNode* tmp1 = NULL;
 			PlaylistNode* tmp2 = NULL;
 			PlaylistNode* tmp3 = NULL;
@@ -213,9 +223,11 @@ int main() {
 			}
 
 			cout << "\n\n\n";
+			break;
 		}
 
-		else if (choice == 's') {
+		case 's':
+		{
 			curr = head;
 			int count = 0;
 			string dArtist = "no";
@@ -244,9 +256,12 @@ int main() {
 				}
 			}
 			cout << "\n\n\n";
+			break;
 		}
 
-		else if (choice == 't'){
+		case 't':
+		{
+
 			curr = head;
 			int add = 0;
 			if (head->GetNext() == NULL) {
@@ -261,11 +276,13 @@ int main() {
 				cout << "Total Playlist Length (in seconds): " << add << endl;
 			}
 			cout << "\n\n\n";
-
+			break;
 		}
 
 		//Print Full linked list
-		else if (choice == 'o') {
+		case 'o':
+		{
+
 			curr = head;
 			int count = 0;
 
@@ -292,16 +309,19 @@ int main() {
 			length = 0;
 
 			cout << "\n\n\n";
+			break;
 		}
 
-		else if (choice == 'q')
+		case 'q':
 		{
 			break;
 		}
-		else {
+		default:
+		{
 			cout << "Invalid Input\n\n" << endl;
+			break;
 		}
-
+		}
 	} while (choice != 'q');
 
 
