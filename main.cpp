@@ -8,18 +8,6 @@ using namespace std;
 void PrintMenu(string);
 
 int main() {
-	//PlaylistNode* songOne = NULL;
-	//PlaylistNode* songTwo = NULL;
-	//
-	//songOne = new PlaylistNode("1","song","artist",3);
-	//songTwo = new PlaylistNode("2","song2", "artist2",2);
-	//
-	//songOne->InsertAfter(songTwo);
-	//songOne->PrintPlaylistNode();
-	//
-	//cout << "Mem of next: " << songOne->GetNext() << endl;
-	//cout << "Mem of song2: " << songTwo << endl;
-	//cout << "Mem of next2: " << songTwo->GetNext() << endl;
 	string plyName;
 	string ID = "none";
 	string songName = "none";
@@ -29,28 +17,17 @@ int main() {
 	PlaylistNode* head = NULL;
 	PlaylistNode* curr = NULL;
 	PlaylistNode* tail = NULL;
-	//PlaylistNode* one = NULL;
-	//PlaylistNode* two = NULL;
-	//PlaylistNode* three = NULL;
-	
-	//one = new PlaylistNode("a","a","a",1);
-	//two = new PlaylistNode("b", "b", "b", 2);
-	//three = new PlaylistNode("c", "c", "c", 3);
-
 	
 	head = new PlaylistNode();
 	curr = head;
-	//head->InsertAfter(one);
-	//one->InsertAfter(two);
-	//two->InsertAfter(three);
-	//tail = three;
-	
 
 	cout << "Playlist Name: ";
-	cin >> plyName;
+	getline(cin,plyName);
 	do {
 		PrintMenu(plyName);
 		cin >> choice;
+
+		cin.ignore();
 
 		switch (choice)
 		{
@@ -61,13 +38,15 @@ int main() {
 			curr = head;
 			PlaylistNode* add = NULL;
 			cout << "New song name: ";
-			cin >> songName;
+			getline(cin, songName);
 			cout << "Song ID: ";
-			cin >> ID;
+			getline(cin, ID);
 			cout << "Artist's Name: ";
-			cin >> artName;
+			getline(cin, artName);
 			cout << "Song Length: ";
 			cin >> length;
+
+			cin.ignore();
 			add = new PlaylistNode(ID, songName, artName, length);
 
 			while (curr->GetNext() != NULL)
@@ -101,7 +80,7 @@ int main() {
 			}
 			else {
 				cout << "ID of song to remove: ";
-				cin >> ID;
+				getline(cin,ID);
 				do {
 					if (ID == curr->GetNext()->GetID()) {
 						found = true;
@@ -238,7 +217,7 @@ int main() {
 			}
 			else {
 				cout << "Desired Artist: ";
-				cin >> dArtist;
+				getline(cin,artName);
 				do {
 					curr = curr->GetNext();
 					if (dArtist == curr->GetArtistName()) {
