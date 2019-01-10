@@ -29,21 +29,21 @@ int main() {
 	PlaylistNode* head = NULL;
 	PlaylistNode* curr = NULL;
 	PlaylistNode* tail = NULL;
-	PlaylistNode* one = NULL;
-	PlaylistNode* two = NULL;
-	PlaylistNode* three = NULL;
+	//PlaylistNode* one = NULL;
+	//PlaylistNode* two = NULL;
+	//PlaylistNode* three = NULL;
 	
-	one = new PlaylistNode("a","a","a",1);
-	two = new PlaylistNode("b", "b", "b", 2);
-	three = new PlaylistNode("c", "c", "c", 3);
+	//one = new PlaylistNode("a","a","a",1);
+	//two = new PlaylistNode("b", "b", "b", 2);
+	//three = new PlaylistNode("c", "c", "c", 3);
 
 	
 	head = new PlaylistNode();
 	curr = head;
-	head->InsertAfter(one);
-	one->InsertAfter(two);
-	two->InsertAfter(three);
-	tail = three;
+	//head->InsertAfter(one);
+	//one->InsertAfter(two);
+	//two->InsertAfter(three);
+	//tail = three;
 	
 
 	cout << "Playlist Name: ";
@@ -89,31 +89,37 @@ int main() {
 			bool found = false;
 			curr = head;
 			PlaylistNode* tmp = NULL;
-			cout << "ID of song to remove: ";
-			cin >> ID;
-			do {
-				if (ID == curr->GetNext()->GetID()){
-					found = true;
-					break;
-				}
-				curr = curr->GetNext();
-			} while (curr->GetNext() != NULL);
-			if (found) {
-				tmp = curr->GetNext();
-				curr->SetNext(tmp->GetNext());
-
-				//reassign head or tail if appropriate
-				if (tail == tmp){
-					tail = tmp->GetNext();
-				}
-
-				if (head->GetNext() == tmp){
-					head->SetNext(tmp->GetNext());
-				}
-				delete tmp;
+			if (head->GetNext() == 0) {
+				cout << "Playlist is empty" << endl;
 			}
 			else {
-				cout << "Not Found" << endl;
+				cout << "ID of song to remove: ";
+				cin >> ID;
+				do {
+					if (ID == curr->GetNext()->GetID()) {
+						found = true;
+						break;
+					}
+					curr = curr->GetNext();
+				} while (curr->GetNext() != NULL);
+				if (found) {
+					tmp = curr->GetNext();
+					curr->SetNext(tmp->GetNext());
+
+					//reassign head or tail if appropriate
+					if (tail == tmp) {
+						tail = tmp->GetNext();
+					}
+
+					if (head->GetNext() == tmp) {
+						head->SetNext(tmp->GetNext());
+					}
+					cout << tmp->GetSongName() << " removed" << endl;
+					delete tmp;
+				}
+				else {
+					cout << "Not Found" << endl;
+				}
 			}
 
 				//clear choice
@@ -123,6 +129,7 @@ int main() {
 				cout << "\n\n\n";
 		}
 
+		//geeks for geeks helped ALOT for this
 		else if (choice == 'c') {
 			PlaylistNode* tmp1 = NULL;
 			PlaylistNode* tmp2 = NULL;
@@ -132,62 +139,78 @@ int main() {
 			int cPos = 0;
 			int dPos = 0;
 			int tPos = 0;
-			curr = head;
-
-			//find pos of tail
-			do {
-				tPos++;
-				curr = curr->GetNext();
-			} while (curr != tail);
 
 			curr = head;
-
-			//user input
-			cout << "Current Position of song: ";
-			cin >> cPos;
-			cout << "Desired Position of song: ";
-			cin >> dPos;
-
-			//if user input is beyond bounds force within
-			if(dPos < 1){
-				dPos = 1;
+			if (head->GetNext() == NULL) {
+				cout << "Playlist is empty" << endl;
 			}
-			else if(dPos > tPos){
-				dPos = tPos;
+			else {
+				do {
+					curr = curr->GetNext();
+					tPos++;
+				} while (curr != tail);
+
+				cout << "Current Position: ";
+				cin >> cPos;
+				cout << "Desired Position: ";
+				cin >> dPos;
+
+				if (dPos < 1) {
+					dPos = 1;
+				}
+				if (dPos > tPos)
+				{
+					dPos = tPos;
+				}
+
+				//find the current position and the previous to
+				tmp1 = head;
+
+				for (int i = 0; i < cPos; i++) {
+					tmp2 = tmp1;
+					tmp1 = tmp1->GetNext();
+				}
+
+				//find the desired position and the previous to
+				tmp3 = head;
+
+				for (int i = 0; i < dPos; i++) {
+					tmp4 = tmp3;
+					tmp3 = tmp3->GetNext();
+				}
+
+				//check if cPos is tail
+				if (tmp1 == tail) {
+					tail = tmp4->GetNext();
+				}
+				//check if dPos is tail
+				else if (tmp3 == tail) {
+					tail = tmp2->GetNext();
+				}
+
+				//check if cPos is head
+				if (tmp2 != head) {
+					tmp2->SetNext(tmp3);
+				}
+				else {
+					head->SetNext(tmp3);
+				}
+
+				//check if dPos is head
+				if (tmp4 != head) {
+					tmp4->SetNext(tmp1);
+				}
+				else {
+					head->SetNext(tmp1);
+				}
+
+				//swap pointers
+				tmp5 = tmp3->GetNext();
+				tmp3->SetNext(tmp1->GetNext());
+				tmp1->SetNext(tmp5);
+
+				cout << tmp1->GetSongName() << " moved to position " << dPos << endl;
 			}
-
-			//rearrange list given choices
-			for (int i = 0; i < cPos-1; i++) {
-				curr = curr->GetNext();
-			}
-
-			tmp1 = curr->GetNext();
-
-			curr = head;
-			for (int i = 0; i < dPos-1; i++) {
-				curr = curr->GetNext();
-			}
-
-			tmp2 = curr->GetNext();
-			tmp3 = tmp1->GetNext();
-			tmp1->SetNext(tmp2->GetNext());
-			tmp2->SetNext(tmp3);
-			tmp3->SetNext(tmp1);
-			if (tmp3 == NULL) {
-
-			}
-			tmp3->SetNext(tmp2);
-
-			//reassign head or tail if appropriate
-			if (tmp1 == head->GetNext()) {
-				head->SetNext(tmp2);
-			}
-			if (tmp1 == tail) {
-				tail = curr;
-			}
-
-			//clear choice
-			length = 0;
 
 			cout << "\n\n\n";
 		}
@@ -196,30 +219,47 @@ int main() {
 			curr = head;
 			int count = 0;
 			string dArtist = "no";
-			cout << "Desired Artist: ";
-			cin >> dArtist;
-			do {
-				curr = curr->GetNext();
-				if (dArtist == curr->GetArtistName()) {
-					count++;
-					cout << count << ". Song Name: " << curr->GetSongName() << endl;
-				}
 
-			} while (curr->GetNext() != NULL);
-			if (count == 0) {
-				cout << "No songs by desired artist." << endl;
+			if (head->GetNext() == NULL)
+			{
+				cout << "Playlist is empty" << endl;
 			}
+			else {
+				cout << "Desired Artist: ";
+				cin >> dArtist;
+				do {
+					curr = curr->GetNext();
+					if (dArtist == curr->GetArtistName()) {
+						count++;
+						cout << "Unique ID: " << curr->GetID() << endl;
+						cout << "Song Name: " << curr->GetSongName() << endl;
+						cout << "Artist Name: " << curr->GetArtistName() << endl;
+						cout << "Song Length (in seconds): " << curr->GetSongLength() << endl;
+						cout << endl;
+					}
+
+				} while (curr->GetNext() != NULL);
+				if (count == 0) {
+					cout << "No songs by desired artist." << endl;
+				}
+			}
+			cout << "\n\n\n";
 		}
 
 		else if (choice == 't'){
 			curr = head;
 			int add = 0;
-			do {
-				curr = curr->GetNext();
-				add = add + curr->GetSongLength();
+			if (head->GetNext() == NULL) {
+				cout << "Playlist is empty" << endl;
+			}
+			else {
+				do {
+					curr = curr->GetNext();
+					add = add + curr->GetSongLength();
 
-			} while (curr->GetNext() != NULL);
-			cout << "Total Playlist Length (in seconds): " << add << endl;
+				} while (curr->GetNext() != NULL);
+				cout << "Total Playlist Length (in seconds): " << add << endl;
+			}
 			cout << "\n\n\n";
 
 		}
@@ -228,18 +268,24 @@ int main() {
 		else if (choice == 'o') {
 			curr = head;
 			int count = 0;
-			do {
-				curr = curr->GetNext();
-				count++;
-				cout << count << "." << endl;
-				cout << "Unique ID: " << curr->GetID() << endl;
-				cout << "Song Name: " << curr->GetSongName() << endl;
-				cout << "Artist Name: " << curr->GetArtistName() << endl;
-				cout << "Song Length (in seconds): " << curr->GetSongLength() << endl;
-			} while (curr->GetNext() != NULL);
-			//if list is empty
-			if (count == 0) {
+
+			//check if list is empty
+			if (head->GetNext() == NULL)
+			{
 				cout << "Playlist is empty" << endl;
+			}
+			else {
+				cout << plyName << " - Full Playlist" << endl;
+				do {
+					curr = curr->GetNext();
+					count++;
+					cout << count << "." << endl;
+					cout << "Unique ID: " << curr->GetID() << endl;
+					cout << "Song Name: " << curr->GetSongName() << endl;
+					cout << "Artist Name: " << curr->GetArtistName() << endl;
+					cout << "Song Length (in seconds): " << curr->GetSongLength() << endl;
+					cout << endl;
+				} while (curr->GetNext() != NULL);
 			}
 
 			//clear choice
@@ -253,7 +299,7 @@ int main() {
 			break;
 		}
 		else {
-			cout << "Invalid" << endl;
+			cout << "Invalid Input\n\n" << endl;
 		}
 
 	} while (choice != 'q');

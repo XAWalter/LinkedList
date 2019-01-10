@@ -26,6 +26,7 @@ PlaylistNode::PlaylistNode(string ID, string sName, string aName, int length) {
 //Insert passed PlaylistNode* after this
 void PlaylistNode::InsertAfter(PlaylistNode* after) {
 	PlaylistNode* tmp = NULL;
+
 	tmp = this->nextNodePtr;
 	this->SetNext(after);
 	after->SetNext(tmp);
