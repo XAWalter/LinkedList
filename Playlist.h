@@ -1,3 +1,7 @@
+//Xavier A Walter
+//SID:861114727
+//Class CS014
+
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 

@@ -1,3 +1,7 @@
+//Xavier A Walter
+//SID:861114727
+//Class CS014
+
 #include <iostream>
 #include <string>
 
@@ -128,6 +132,7 @@ int main() {
 			int cPos = 0;
 			int dPos = 0;
 			int tPos = 0;
+			bool valid = false;
 
 			curr = head;
 			if (head->GetNext() == NULL) {
@@ -139,11 +144,19 @@ int main() {
 					tPos++;
 				} while (curr != tail);
 
-				cout << "Current Position: ";
-				cin >> cPos;
+				do {
+					cout << "Current Position: ";
+					cin >> cPos;
+					if (cPos >= 1 && cPos <= tPos){
+						valid = true;
+					}
+					else {
+						cout << "Invalid Input" << endl;
+					}
+				} while (valid == false);
+
 				cout << "Desired Position: ";
 				cin >> dPos;
-
 				if (dPos < 1) {
 					dPos = 1;
 				}
@@ -217,7 +230,7 @@ int main() {
 			}
 			else {
 				cout << "Desired Artist: ";
-				getline(cin,artName);
+				getline(cin,dArtist);
 				do {
 					curr = curr->GetNext();
 					if (dArtist == curr->GetArtistName()) {
@@ -307,7 +320,6 @@ int main() {
 
 
 
-	system("pause");
 	return 0;
 }
 
